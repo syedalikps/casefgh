@@ -1,0 +1,15 @@
+trigger:
+- master #Change the branch name in which your jar is uploaded
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: |
+    sudo apt-get update -y
+    sudo apt-get install openjdk-11-jdk -y
+  displayName: 'installing java jdk 11'
+        
+- script: |
+    java -jar fireflink-action-1.0.0.jar $(FIREFLINK_URL) $(FIREFLINK_SUITE_ID) $(FIREFLINK_TOKEN) $(FIREFLINK_PROJECT_TYPE)
+  displayName: 'Fireflink test'
